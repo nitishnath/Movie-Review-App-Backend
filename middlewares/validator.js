@@ -12,6 +12,7 @@ exports.userValidator = [
     .withMessage("Password must be 8 to 16 chaacters long!"),
 ];
 
+//catch the validation error we have the below validate middleware function
 exports.validate = (req, res, next) => {
   const error = validationResult(req).array();
   if (error.length) {
