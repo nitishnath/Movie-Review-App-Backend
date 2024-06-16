@@ -59,4 +59,13 @@ exports.verifyEmail = async (req, res) => {
 
   const token = await EmailVerificationToken.findOne({ owner: userId });
   if (!token) return res.json({ error: "Token not found!" });
+
+  const isMatched = await token.compareToken(OTP);
+  if (!isMatched) return res.json({ error: "Please submit a valid OTP!" });
+
+  user.isVerified = true;
+  await user.save();
+  await EmailVerificationToken.findByIdAndDelete(token._id);
+
+  res.json({ message: "Your email is verified!" });
 };
