@@ -1,12 +1,19 @@
 const express = require("express");
+require("express-async-errors");
+require("dotenv").config();
 const morgan = require("morgan");
 require("./db");
 const userRouter = require("./routes/user");
+const { errorHandler } = require("./middlewares/error-handler");
 
 const app = express();
 app.use(express.json()); //configures the Express application to parse incoming requests with JSON payloads
 app.use(morgan("dev"));
 app.use("/api/user", userRouter); // '/api' will add in front of any API
+
+//error handing
+app.use(errorHandler);
+
 // app.get("/", (req, res) => {
 //   res.send("<h3>I'm from your backend server!!</h3>");
 // });

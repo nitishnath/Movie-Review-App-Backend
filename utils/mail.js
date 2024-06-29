@@ -15,8 +15,8 @@ function generateMailTransporter() {
     host: "sandbox.smtp.mailtrap.io",
     port: 2525,
     auth: {
-      user: "04a8826f0c60a6",
-      pass: "a5de2911505e5c",
+      user: process.env.SEND_MAIL_USER,
+      pass: process.env.SEND_MAIL_PASS,
     },
   });
 }
