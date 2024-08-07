@@ -1,16 +1,20 @@
 const express = require("express");
+const cors = require("cors");
 require("express-async-errors");
 require("dotenv").config();
 const morgan = require("morgan");
 require("./db");
 const userRouter = require("./routes/user");
 const { errorHandler } = require("./middlewares/error-handler");
+const { handleNotFound } = require("./utils/helper");
 
 const app = express();
+app.use(cors());
 app.use(express.json()); //configures the Express application to parse incoming requests with JSON payloads
 app.use(morgan("dev"));
 app.use("/api/user", userRouter); // '/api' will add in front of any API
 
+app.use("/*", handleNotFound);
 //error handing
 app.use(errorHandler);
 

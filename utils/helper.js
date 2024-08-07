@@ -15,4 +15,8 @@ const generateRandomBytes = () => {
   });
 };
 
-module.exports = { generateRandomBytes, sendError };
+const handleNotFound = (req, res) => {
+  sendError(res, "Not Found!", 404);
+};
+
+module.exports = { generateRandomBytes, sendError, handleNotFound };
